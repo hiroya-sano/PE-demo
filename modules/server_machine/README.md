@@ -52,7 +52,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_instance_1a_id"></a> [instance\_1a\_id](#output\_instance\_1a\_id) | instance id in 1a |
-| <a name="output_instance_1c_id"></a> [instance\_1c\_id](#output\_instance\_1c\_id) | instance id in 1a |
+| <a name="output_instance_1c_id"></a> [instance\_1c\_id](#output\_instance\_1c\_id) | instance id in 1c |
 | <a name="output_lambda_endponit_id"></a> [lambda\_endponit\_id](#output\_lambda\_endponit\_id) | vpcendpoint id for sts |
 | <a name="output_sts_endponit_id"></a> [sts\_endponit\_id](#output\_sts\_endponit\_id) | vpcendpoint id for sts |
 <!-- END_TF_DOCS -->
