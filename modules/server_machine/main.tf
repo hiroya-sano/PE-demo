@@ -4,7 +4,7 @@ resource "aws_instance" "instance_1a" {
   subnet_id     = aws_subnet.main_1a.id
 
   tags = {
-    Name = "${var.instance_name}-1a"
+    Name      = "${var.instance_name}-1a"
     Createdby = "Terraform"
   }
 }
@@ -17,7 +17,7 @@ resource "aws_instance" "instance_1c" {
   subnet_id     = aws_subnet.main_1c[0].id
 
   tags = {
-    Name = "${var.instance_name}-1c"
+    Name      = "${var.instance_name}-1c"
     Createdby = "Terraform"
   }
 }
@@ -26,18 +26,18 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    Name = "vpc-handson"
+    Name      = "vpc-handson"
     Createdby = "Terraform"
   }
 }
 
 resource "aws_subnet" "main_1a" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.subnet_cidr_1a
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.subnet_cidr_1a
   availability_zone = "ap-northeast-1a"
 
   tags = {
-    Name = "subnet-handson-1a"
+    Name      = "subnet-handson-1a"
     Createdby = "Terraform"
   }
 }
@@ -45,12 +45,12 @@ resource "aws_subnet" "main_1a" {
 resource "aws_subnet" "main_1c" {
   count = var.is_multi_az ? 1 : 0
 
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.subnet_cidr_1c
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.subnet_cidr_1c
   availability_zone = "ap-northeast-1c"
 
   tags = {
-    Name = "subnet-handson-1c"
+    Name      = "subnet-handson-1c"
     Createdby = "Terraform"
   }
 }
@@ -68,7 +68,7 @@ resource "aws_security_group" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "sg-handson"
+    Name      = "sg-handson"
     Createdby = "Terraform"
   }
 }
@@ -100,7 +100,7 @@ resource "aws_vpc_endpoint" "sts" {
   private_dns_enabled = false
 
   tags = {
-    Name = "public_bastion_sts"
+    Name      = "public_bastion_sts"
     Createdby = "Terraform"
   }
 }
@@ -114,7 +114,7 @@ resource "aws_vpc_endpoint" "lambda" {
   private_dns_enabled = false
 
   tags = {
-    Name = "public_bastion_lambda"
+    Name      = "public_bastion_lambda"
     Createdby = "Terraform"
   }
 }
