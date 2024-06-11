@@ -7,7 +7,11 @@
 ### Terraformのコードを実行する
 ```bash
 cd samples
-terraform init
+
+# GitHubリポジトリを作成する場合は環境変数 TF_VAR_github_token にGitHubのパーソナルアクセストークンを設定しておく
+export TF_VAR_github_token=<自身のGitHub パーソナルアクセストークン>
+
+terraform init --upgrade
 terraform plan
 terraform apply -auto-approve
 ```
