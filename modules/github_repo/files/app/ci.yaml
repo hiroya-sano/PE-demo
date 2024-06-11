@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - feature/*
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --no-cache-dir --upgrade -r ./requirements.txt
+        python -m pip install pytest
+
+    - name: Test with pytest
+      run: |
+        pytest
+
+    - name: Build Docker image
+      env:
+        DOCKER_BUILDKIT: 1
+      run: |
+        docker build -t cicd-demo-app:latest .
+
+    - name: Check Docker image
+      run: |
+        docker image ls | grep -i cicd-demo-app
