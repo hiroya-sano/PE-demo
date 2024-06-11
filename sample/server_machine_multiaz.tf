@@ -1,4 +1,4 @@
-module "machine" {
+module "machine_multiaz" {
   source = "../modules/server_machine"
 
   is_multi_az          = true

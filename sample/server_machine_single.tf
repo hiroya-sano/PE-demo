@@ -1,4 +1,4 @@
-module "machine" {
+module "machine_single" {
   source = "../modules/server_machine"
 
   instance_name        = "handson-single"
