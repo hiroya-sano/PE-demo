@@ -28,23 +28,23 @@ variable "instance_type" {
 }
 
 variable "vpc_cidr" {
-  type = string
+  type        = string
   description = "vpc's cidr block"
 }
 
 variable "is_multi_az" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "マルチAZ冗長化構成とするかどうかのフラグ"
 }
 
 variable "subnet_cidr_1a" {
-  type = string
+  type        = string
   description = "1a subnet's cidr block"
 }
 
 variable "subnet_cidr_1c" {
-  type = string
-  default = null
+  type        = string
+  default     = null
   description = "1c subnet's cidr block"
 }

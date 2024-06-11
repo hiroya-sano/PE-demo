@@ -17,5 +17,5 @@ module "machine" {
   instance_vpc_name    = "handson-vpc-single"
   vpc_cidr             = "10.0.0.0/16"
   subnet_cidr_1a       = "10.0.0.0/24"
-  subnet_cidr_1c       = "10.0.0.1/24"
+  subnet_cidr_1c       = "10.0.1.0/24"
 }
