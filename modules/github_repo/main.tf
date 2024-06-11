@@ -81,8 +81,8 @@ resource "github_repository_file" "pipeline" {
   file                = each.value.path
   content             = each.value.content
   commit_message      = "Managed by Terraform"
-  commit_author       = "hiroya.sano"
-  commit_email        = "hiroya.sano@ulsystems.co.jp"
+  commit_author       = var.first_commit_author
+  commit_email        = var.first_commit_author
   overwrite_on_create = true
 
   lifecycle {
@@ -98,8 +98,8 @@ resource "github_repository_file" "code" {
   file                = each.value.path
   content             = each.value.content
   commit_message      = "Managed by Terraform"
-  commit_author       = "hiroya.sano"
-  commit_email        = "hiroya.sano@ulsystems.co.jp"
+  commit_author       = var.first_commit_author
+  commit_email        = var.first_commit_author
   overwrite_on_create = true
 
   lifecycle {
