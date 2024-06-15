@@ -13,18 +13,6 @@ Terraformに記述することで、記述された部分は原則コードか�
 > 参考：[terraform lifecycleドキュメント](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
 
 ## コマンド集
-### Terraformのコードを実行する
-```bash
-cd samples
-
-# GitHubリポジトリを作成する場合は環境変数 TF_VAR_github_token にGitHubのパーソナルアクセストークンを設定しておく
-export TF_VAR_github_token=<自身のGitHub パーソナルアクセストークン>
-
-terraform init --upgrade
-terraform plan
-terraform apply -auto-approve
-```
-
 ### Terraform testを実行する
 `modules/server_machine/tests/test.tftest.hcl` ファイルにテストロジックを格納している
 ```bash
