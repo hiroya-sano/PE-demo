@@ -62,7 +62,10 @@ variable "endpoint_policy" {
   description = "VPCエンドポイントのポリシー"
 
   validation {
-    condition = alltrue([for st in var.endpoint_policy.Statement : st.Resource != "*" ])
+    condition = (
+      var.endpoint_policy != null &&
+      alltrue([for st in var.endpoint_policy.Statement : st.Resource != "*" ])
+    )
     error_message = "The endpoint_policy must always be set to a value"
   }
 }

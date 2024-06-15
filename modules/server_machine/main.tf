@@ -30,7 +30,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    Name      = "vpc-handson"
+    Name      = var.instance_vpc_name
     Createdby = "Terraform"
   }
 }
