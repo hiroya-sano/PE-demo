@@ -13,10 +13,10 @@ module "machine_multiaz" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "*"
+        Action    = "*"
         Principal = "*"
-        Resource = "arn:aws:*"
-        Effect = "Allow"
+        Resource  = "arn:aws:*"
+        Effect    = "Allow"
       }
     ]
   }

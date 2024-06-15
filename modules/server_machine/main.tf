@@ -9,7 +9,7 @@ resource "aws_instance" "instance_1a" {
   }
 
   lifecycle {
-    ignore_changes = [ instance_type ]
+    ignore_changes = [instance_type]
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_instance" "instance_1c" {
   }
 
   lifecycle {
-    ignore_changes = [ instance_type ]
+    ignore_changes = [instance_type]
   }
 }
 
@@ -106,7 +106,7 @@ resource "aws_vpc_endpoint" "sts" {
   security_group_ids  = [aws_security_group.main.id]
   subnet_ids          = var.is_multi_az ? [aws_subnet.main_1a.id, aws_subnet.main_1c[0].id] : [aws_subnet.main_1a.id]
   private_dns_enabled = false
-  policy = jsonencode(var.endpoint_policy)
+  policy              = jsonencode(var.endpoint_policy)
 
   tags = {
     Name      = "public_bastion_sts"
@@ -121,7 +121,7 @@ resource "aws_vpc_endpoint" "lambda" {
   security_group_ids  = [aws_security_group.main.id]
   subnet_ids          = var.is_multi_az ? [aws_subnet.main_1a.id, aws_subnet.main_1c[0].id] : [aws_subnet.main_1a.id]
   private_dns_enabled = false
-  policy = jsonencode(var.endpoint_policy)
+  policy              = jsonencode(var.endpoint_policy)
 
   tags = {
     Name      = "public_bastion_lambda"

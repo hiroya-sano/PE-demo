@@ -22,7 +22,7 @@ variable "instance_type" {
   default     = "t3.micro"
 
   validation {
-    condition     = (
+    condition = (
       var.instance_type == "t3.medium" ||
       var.instance_type == "t3.micro"
     )
@@ -56,10 +56,10 @@ variable "endpoint_policy" {
   type = object({
     Version = string
     Statement = list(object({
-      Action = string
+      Action    = string
       Principal = string
-      Resource = string
-      Effect = string
+      Resource  = string
+      Effect    = string
     }))
   })
   description = "VPCエンドポイントのポリシー"
@@ -67,7 +67,7 @@ variable "endpoint_policy" {
   validation {
     condition = (
       var.endpoint_policy != null &&
-      alltrue([for st in var.endpoint_policy.Statement : st.Resource != "*" ])
+      alltrue([for st in var.endpoint_policy.Statement : st.Resource != "*"])
     )
     error_message = "The endpoint_policy must always be set to a value"
   }

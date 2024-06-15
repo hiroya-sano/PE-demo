@@ -1,58 +1,58 @@
 mock_provider "aws" {}
 
 variables {
-    instance_name        = "test-single"
-    instance_subnet_name = "test-subnet-single"
-    instance_type        = "t3.micro"
-    instance_vpc_name    = "test-vpc-single"
-    vpc_cidr             = "10.0.0.0/16"
-    subnet_cidr_1a       = "10.0.0.0/24"
-    endpoint_policy = {
-        Version = "2012-10-17"
-        Statement = [
-            {
-                Action = "*"
-                Principal = "*"
-                Resource = "arn:aws:*"
-                Effect = "Allow"
-            }
-        ]
-    }
+  instance_name        = "test-single"
+  instance_subnet_name = "test-subnet-single"
+  instance_type        = "t3.micro"
+  instance_vpc_name    = "test-vpc-single"
+  vpc_cidr             = "10.0.0.0/16"
+  subnet_cidr_1a       = "10.0.0.0/24"
+  endpoint_policy = {
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action    = "*"
+        Principal = "*"
+        Resource  = "arn:aws:*"
+        Effect    = "Allow"
+      }
+    ]
+  }
 }
 
 run "create_instances_single" {}
 
 run "create_instances_multi" {
-    variables {
-        is_multi_az          = true
-        subnet_cidr_1c       = "10.0.1.0/24"
-    }
+  variables {
+    is_multi_az    = true
+    subnet_cidr_1c = "10.0.1.0/24"
+  }
 }
 
 run "create_instances_error_instance_type" {
-    command = plan
-    variables {
-        instance_type = "t3.large"
-    }
-    expect_failures = [var.instance_type]
+  command = plan
+  variables {
+    instance_type = "t3.large"
+  }
+  expect_failures = [var.instance_type]
 }
 
 run "create_instances_error_endpoint_policy" {
-    command = plan
-    variables {
-        endpoint_policy = {
-            Version = "2012-10-17"
-            Statement = [
-                {
-                    Action = "*"
-                    Principal = "*"
-                    Resource = "*"
-                    Effect = "Allow"
-                }
-            ]
+  command = plan
+  variables {
+    endpoint_policy = {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action    = "*"
+          Principal = "*"
+          Resource  = "*"
+          Effect    = "Allow"
         }
+      ]
     }
-    expect_failures = [ var.endpoint_policy ]
+  }
+  expect_failures = [var.endpoint_policy]
 }
 
 // is_multi_azがtrueにもかかわらずis_subnet_cidr_1cが指定されていない場合はエラーになることを確認するため
