@@ -48,3 +48,21 @@ variable "subnet_cidr_1c" {
   default     = null
   description = "1c subnet's cidr block"
 }
+
+variable "endpoint_policy" {
+  type = object({
+    Version = string
+    Statement = list(object({
+      Action = string
+      Principal = string
+      Resource = string
+      Effect = string
+    }))
+  })
+  description = "VPCエンドポイントのポリシー"
+
+  validation {
+    condition = alltrue([for st in var.endpoint_policy.Statement : st.Resource != "*" ])
+    error_message = "The endpoint_policy must always be set to a value"
+  }
+}
