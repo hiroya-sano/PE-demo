@@ -7,6 +7,10 @@ resource "aws_instance" "instance_1a" {
     Name      = "${var.instance_name}-1a"
     Createdby = "Terraform"
   }
+
+  lifecycle {
+    ignore_changes = [ instance_type ]
+  }
 }
 
 resource "aws_instance" "instance_1c" {
