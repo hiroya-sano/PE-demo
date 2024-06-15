@@ -25,6 +25,16 @@ terraform plan
 terraform apply -auto-approve
 ```
 
+### Terraform testを実行する
+`modules/server_machine/tests/test.tftest.hcl` ファイルにテストロジックを格納している
+```bash
+cd modules/server_machine
+terraform init --upgrade
+terraform test
+```
+
+> 参考：[terraform testドキュメント](https://developer.hashicorp.com/terraform/language/tests)
+
 ### モジュールの説明資料を自動作成する
 ```bash
 # server machineモジュールの例
