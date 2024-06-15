@@ -24,6 +24,10 @@ resource "aws_instance" "instance_1c" {
     Name      = "${var.instance_name}-1c"
     Createdby = "Terraform"
   }
+
+  lifecycle {
+    ignore_changes = [ instance_type ]
+  }
 }
 
 resource "aws_vpc" "main" {
