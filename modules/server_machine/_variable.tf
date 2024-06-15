@@ -22,7 +22,10 @@ variable "instance_type" {
   default     = "t3.micro"
 
   validation {
-    condition     = var.instance_type == "t3.medium" || var.instance_type == "t3.micro"
+    condition     = (
+      var.instance_type == "t3.medium" ||
+      var.instance_type == "t3.micro"
+    )
     error_message = "The instance_type can be \"t3.medium\" or \"t3.micro\""
   }
 }
