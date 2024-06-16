@@ -10,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.54.1 |
 | <a name="provider_terraform"></a> [terraform](#provider\_terraform) | n/a |
 
 ## Modules
@@ -38,6 +38,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_endpoint_policy"></a> [endpoint\_policy](#input\_endpoint\_policy) | VPCエンドポイントのポリシー | <pre>object({<br>    Version = string<br>    Statement = list(object({<br>      Action    = string<br>      Principal = string<br>      Resource  = string<br>      Effect    = string<br>    }))<br>  })</pre> | n/a | yes |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | ec2 instance name | `string` | n/a | yes |
 | <a name="input_instance_subnet_name"></a> [instance\_subnet\_name](#input\_instance\_subnet\_name) | subnet name for instance | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | ec2 instance type | `string` | `"t3.micro"` | no |

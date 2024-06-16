@@ -36,11 +36,11 @@ variable "repo_type" {
 }
 
 variable "first_commit_author" {
-  type = string
+  type        = string
   description = "リポジトリ作成をトリガーする人のメールアドレス"
 
   validation {
-    condition = can(regex("^\\S+@\\S+\\.\\S+$", var.first_commit_author))
+    condition     = can(regex("^\\S+@\\S+\\.\\S+$", var.first_commit_author))
     error_message = "The email address is not in a valid format"
   }
 }
