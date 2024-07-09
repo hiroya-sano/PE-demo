@@ -23,38 +23,17 @@ jobs:
         uses: actions-ecosystem/action-get-latest-tag@v1
 
       - name: Get new version
+        id: check-new-version
         run: |
           NEW_VERSOIN=$(cat version.json | jq -r '.version')
-          echo "new_version=${NEW_VERSOIN}" >> $GITHUB_ENV
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install semver
-        run: npm install semver
-
-      - name: Debug
-        env:
-          CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
-          NEW_VERSOIN: ${{ env.new_version }}
-        run: |
-          echo "current: ${CURRENT_VERSION}"
-          echo "new: ${NEW_VERSOIN}"
+          echo ${NEW_VERSOIN}
 
       - name: Compare versions
         env:
           CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
-          NEW_VERSOIN: ${{ env.new_version }}
+          NEW_VERSOIN: ${{ steps.check-new-version.outputs.result }}
         run: |
-          node -e "
-          const semver = require('semver');
-          const currentVer = process.env.CURRENT_VERSION;
-          const newVer = process.env.NEW_VERSOIN;
-          
-          if (semver.gt(newVer, currentVer)) {
-            process.exit(0);
-          } else {
-            console.log(`\${newVer} is older or  same as \${currentVer}`);
-          }"
+          if [ "$CURRENT_VERSION" == "$NEW_VERSOIN" ]; then
+            echo "Error: The versions are the same: $CURRENT_VERSION"
+            exit 1
+          fi
