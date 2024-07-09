@@ -38,6 +38,14 @@ jobs:
       - name: Install semver
         run: npm install semver
 
+      - name: Debug
+        env:
+          CURRENT_VERSION: ${{ env.current_version }}
+          NEW_VERSOIN: ${{ env.new_version }}
+        run: |
+          echo "current: ${CURRENT_VERSION}"
+          echo "new: ${NEW_VERSOIN}"
+
       - name: Compare versions
         env:
           CURRENT_VERSION: ${{ env.current_version }}
