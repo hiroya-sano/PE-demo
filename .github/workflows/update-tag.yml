@@ -21,14 +21,10 @@ jobs:
           NEW_VERSION=$(cat version.json | jq -r '.version')
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
-      - name: Push tag
-        uses: actions-ecosystem/action-push-tag@v1
-        with:
-          tag: ${{ env.NEW_VERSION }}
-
       - name: Create release note
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: release-drafter/release-drafter@v6
         with: 
           config-name: release-drafter.yml
+          tag: ${{ env.NEW_VERSION }}
