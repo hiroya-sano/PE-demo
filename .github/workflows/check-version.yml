@@ -22,12 +22,13 @@ jobs:
         id: check-current-version
         run: |
           CURRENT_VERSION=$(git describe --tags --abbrev=0)
-          echo ${CURRENT_VERSION}
+          echo "current_version=${CURRENT_VERSION}" >> $GITHUB_ENV
 
       - name: Get new version
         id: check-new-version
         run: |
           NEW_VERSOIN=$(cat version.json | jq -r '.version')
+          echo "new_version=${NEW_VERSOIN}" >> $GITHUB_ENV
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
@@ -39,8 +40,8 @@ jobs:
 
       - name: Compare versions
         env:
-          CURRENT_VERSION: ${{ steps.check-current-version.outputs.result }}
-          NEW_VERSOIN: ${{ steps.check-new-version.outputs.result }}
+          CURRENT_VERSION: ${{ env.current_version }}
+          NEW_VERSOIN: ${{ env.new_version }}
         run: |
           node -e "
           const semver = require('semver');
