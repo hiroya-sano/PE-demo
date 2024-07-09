@@ -1,4 +1,4 @@
-name: "Check version"
+name: "Push tag and create release note"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   terraform:
-    name: "Check version"
+    name: "Push tag and create release note"
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,10 +21,14 @@ jobs:
           NEW_VERSION=$(cat version.json | jq -r '.version')
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
+      - name: Push git tag
+        run: |
+          git tag ${NEW_VERSION}
+          git push origin ${NEW_VERSION}
+  
       - name: Create release note
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: release-drafter/release-drafter@v6
         with: 
           config-name: release-drafter.yml
-          tag: ${{ env.NEW_VERSION }}
