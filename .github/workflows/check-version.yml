@@ -25,15 +25,22 @@ jobs:
       - name: Get new version
         id: check-new-version
         run: |
-          NEW_VERSOIN=$(cat version.json | jq -r '.version')
-          echo ${NEW_VERSOIN}
+          NEW_VERSION=$(cat version.json | jq -r '.version')
+          echo ${NEW_VERSION}
 
+      - name: Debug
+        env:
+          CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
+          NEW_VERSION: ${{ steps.check-new-version.outputs.result }}
+        run: |
+          echo "current: ${CURRENT_VERSION}"
+          echo "current: ${NEW_VERSION}"
       - name: Compare versions
         env:
           CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
-          NEW_VERSOIN: ${{ steps.check-new-version.outputs.result }}
+          NEW_VERSION: ${{ steps.check-new-version.outputs.result }}
         run: |
-          if [ "$CURRENT_VERSION" == "$NEW_VERSOIN" ]; then
+          if [ "$CURRENT_VERSION" == "$NEW_VERSION" ]; then
             echo "Error: The versions are the same: $CURRENT_VERSION"
             exit 1
           fi
