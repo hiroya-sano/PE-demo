@@ -26,7 +26,7 @@ jobs:
         id: check-new-version
         run: |
           NEW_VERSION=$(cat version.json | jq -r '.version')
-          echo "NEW_VERSION=${NEW_VERSION}" >> GITHUB_ENV
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
       - name: Debug
         env:
