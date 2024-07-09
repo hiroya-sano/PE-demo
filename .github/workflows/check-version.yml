@@ -20,12 +20,9 @@ jobs:
 
       - name: Get current version
         id: check-current-version
-        run: |
-          CURRENT_VERSION=$(git tag --sort=-v:refname | head -n 1)
-          echo "current_version=${CURRENT_VERSION}" >> $GITHUB_ENV
+        uses: actions-ecosystem/action-get-latest-tag@v1
 
       - name: Get new version
-        id: check-new-version
         run: |
           NEW_VERSOIN=$(cat version.json | jq -r '.version')
           echo "new_version=${NEW_VERSOIN}" >> $GITHUB_ENV
@@ -40,7 +37,7 @@ jobs:
 
       - name: Debug
         env:
-          CURRENT_VERSION: ${{ env.current_version }}
+          CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
           NEW_VERSOIN: ${{ env.new_version }}
         run: |
           echo "current: ${CURRENT_VERSION}"
@@ -48,7 +45,7 @@ jobs:
 
       - name: Compare versions
         env:
-          CURRENT_VERSION: ${{ env.current_version }}
+          CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
           NEW_VERSOIN: ${{ env.new_version }}
         run: |
           node -e "
