@@ -21,7 +21,7 @@ jobs:
       - name: Get current version
         id: check-current-version
         run: |
-          CURRENT_VERSION=$(git describe --tags --abbrev=0)
+          CURRENT_VERSION=$(git tag --sort=-v:refname | head -n 1)
           echo "current_version=${CURRENT_VERSION}" >> $GITHUB_ENV
 
       - name: Get new version
