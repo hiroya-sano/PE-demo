@@ -1,0 +1,39 @@
+name: "Check version"
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+      - 'hotfix/*'
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  terraform:
+    name: "Check version"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get current version
+        id: check-current-version
+        uses: actions-ecosystem/action-get-latest-tag@v1
+
+      - name: Get new version
+        id: check-new-version
+        run: |
+          NEW_VERSION=$(cat version.json | jq -r '.version')
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Compare versions
+        env:
+          CURRENT_VERSION: ${{ steps.check-current-version.outputs.tag }}
+          NEW_VERSION: ${{ env.NEW_VERSION }}
+        run: |
+          if [ "$CURRENT_VERSION" == "$NEW_VERSION" ]; then
+            echo "Error: The versions are the same: $CURRENT_VERSION"
+            exit 1
+          fi
